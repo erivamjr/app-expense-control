@@ -23,7 +23,6 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
   async function handleCreateNewTransaction(event: FormEvent) {
     event.preventDefault();
 
-    console.log('Esta passando por aqui!');
     await createTransaction({
       title,
       amount,
@@ -57,6 +56,7 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
         <h2>Cadastrar Transação</h2>
 
         <input
+          type="text"
           placeholder="Título"
           value={title}
           onChange={event => setTitle(event.target.value)}
@@ -97,7 +97,9 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
           onChange={event => setCategory(event.target.value)}
         />
 
-        <button type="submit">
+        <button
+          type="submit"
+        >
           Cadastrar
         </button>
       </Container>
