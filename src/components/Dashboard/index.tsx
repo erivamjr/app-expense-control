@@ -1,4 +1,3 @@
-import React from 'react'
 import { Summany } from '../Summany'
 import { TransactionsTable } from '../TransactionsTable'
 import { Container } from './styles'
