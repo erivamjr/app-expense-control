@@ -1,6 +1,11 @@
-import express from 'express';
+const express = require('express');
+const routes = require('./routes');
 
 const app = express();
+app.use(routes);
+
+
+app.get('/',);
 
 app.listen(3001, () => {
   console.log('Server is running on port 3001');
