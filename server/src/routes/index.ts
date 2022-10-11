@@ -1,7 +1,7 @@
-const list = require('./finace.route')
+import list from './finace.route';
 
 const router = [
   list,
 ];
 
-module.exports = router;
+export default router;

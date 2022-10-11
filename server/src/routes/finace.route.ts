@@ -6,4 +6,4 @@ const router = express.Router();
 
 router.get('/transactions', getList);
 
-module.exports = router;
+export default router;
