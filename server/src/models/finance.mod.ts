@@ -1,8 +1,8 @@
-import { connection } from '../config/connections';
+import { client } from '../config/connections';
 
 const listMovements = async () => {
-  const result = await connection.query('SELECT * FROM financial_control.finance');
-  return result;
+  const result = await (await client).query('SELECT * FROM financial_control.finance') as any;
+  return result.rows;
 };
 
 export { listMovements };
