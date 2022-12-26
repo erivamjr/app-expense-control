@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev --transpile-only src/server.ts",
-    "test": "mocha -r ts-node/register ./tests/unit/**/*$NAME*.{test,spec}.ts -t 10000 --exit"
+    "test": "mocha -r ts-node/register ./tests/unit/**/*$NAME*.{test,spec}.ts -t 5000 --exit"
   },
   "dependencies": {
     "@types/pg-pool": "^2.0.3",
