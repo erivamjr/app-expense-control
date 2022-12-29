@@ -1,9 +1,11 @@
-import list from './finace.route';
-import register from './user.route';
+import login from './login.routes';
+import list from './finace.routes';
+import register from './user.routes';
 
 const router = [
   list,
-  register
+  register,
+  login
 ];
 
 export default router;
