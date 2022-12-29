@@ -1,5 +1,4 @@
 import { client } from '../config/connections';
-import { NewUserProps } from '../services/user.serv';
 export const searchEmail = async (email: string) => {
   const result = await (await client).query(`SELECT * FROM
   users 
@@ -7,7 +6,7 @@ export const searchEmail = async (email: string) => {
   email = $1`,
     [email],
   ) as any;
-  return result.rowCount;
+  return result;
 };
 
 export const searchRole = async (role: string) => {
@@ -21,7 +20,7 @@ export const searchRole = async (role: string) => {
 };
 
 
-export const createUser = async (id: string, name: string, role: string, email: string, password: string) => {
+export const createUserModel = async (id: string, name: string, role: string, email: string, password: string) => {
 
   const results = await (await client).query(
     `INSERT INTO 
