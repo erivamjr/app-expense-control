@@ -7,4 +7,4 @@ export const createUser = async (req: Request, res: Response) => {
   if (!resp) return res.status(code).json(resp);
   return res.status(code).json(resp);
 };
-// console.log("CONSOLANDOOOO!!!.......", name, email, password);
+
