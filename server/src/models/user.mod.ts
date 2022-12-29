@@ -24,10 +24,10 @@ export const createUserModel = async (id: string, name: string, role: string, em
 
   const results = await (await client).query(
     `INSERT INTO 
-    users (id, name, role, email, password) 
+    users (id, name, role, email, password, created_at) 
     VALUES 
-    ( $1,$2,$3,$4,$5 )`,
-    [id, name, role, email, password],
+    ( $1,$2,$3,$4,$5,$6)`,
+    [id, name, role, email, password, new Date()],
   );
   return results.rowCount;
 };
