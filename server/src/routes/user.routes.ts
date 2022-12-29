@@ -1,8 +1,7 @@
 import { createUser } from "../controllers/user.controller";
+import { Router } from "express";
 
-const express = require('express');
-
-const router = express.Router();
+const router = Router();
 
 router.post('/register', createUser);
 
