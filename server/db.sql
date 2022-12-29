@@ -32,22 +32,19 @@ VALUES (
     );
 
 INSERT INTO
-    financial_control.finance (
+    finance (
         title,
-        type amount,
+        type,
+        amount,
+        category,
         created_at,
-        category
+        id_user
     )
 VALUES (
         'Freelancer de website',
         'deposit',
         6000,
+        'Dev',
         '2021-02-12 09:00:00',
-        'Dev'
-    ), (
-        'Aluguel',
-        'withdraw',
-        1100,
-        '2021-02-14 11:00:00',
-        'Casa'
+        '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
     );
