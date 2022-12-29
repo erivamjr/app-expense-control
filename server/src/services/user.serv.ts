@@ -1,5 +1,6 @@
-import { createUser, searchEmail, searchRole } from '../models/user.mod';
+import { createUserModel, searchEmail, searchRole } from '../models/user.mod';
 import { v4 as uuidv4 } from 'uuid';
+import { genSaltSync, hashSync } from 'bcryptjs';
 
 export interface NewUserProps {
   id: string;
@@ -11,14 +12,17 @@ export interface NewUserProps {
 export const createUserService = async (name: string, email: string, password: string) => {
   const user = await searchEmail(email);
 
-  if (user) return { resp: { message: 'Email already exists' }, code: 400 };
+  if (user.rowCount) return { resp: { message: 'Email already exists' }, code: 400 };
 
   const isAdmin = await searchRole('admin')
 
   const role = isAdmin ? 'user' : 'admin';
 
+  const salt = genSaltSync(10);
+  const hash = hashSync(password, salt);
+
   const id = uuidv4();
-  const createdUser = await createUser(id, name, role, email, password);
+  const createdUser = await createUserModel(id, name, role, email, hash);
   if (!createdUser) return { resp: { message: 'User not created in database' }, code: 400 };
   const newUser = {
     id,
