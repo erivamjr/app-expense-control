@@ -10,3 +10,9 @@ export const createTransaction = async (title: string, type: string, amount: num
 
   return result.rows;
 }
+
+export const updateTransaction = async (title: string, type: string, amount: number, category: string, id: string, userId: string) => {
+  const result = await (await client).query('UPDATE finance SET title = $1, type = $2, amount = $3, category = $4 WHERE id = $5 AND id_user = $6 RETURNING *', [title, type, amount, category, id, userId]) as any;
+
+  return result.rows;
+}
