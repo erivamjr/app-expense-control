@@ -16,3 +16,9 @@ export const updateTransaction = async (title: string, type: string, amount: num
 
   return result.rows;
 }
+
+export const deleteTransaction = async (id: string, userId: string) => {
+  const result = await (await client).query('DELETE FROM finance WHERE id = $1 AND id_user = $2 RETURNING *', [id, userId]) as any;
+
+  return result.rowCount;
+}
