@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev --transpile-only src/server.ts",
-    "test": "mocha -r ts-node/register ./tests/unit/**/*$NAME*.{test,spec}.ts -t 5000 --exit"
+    "test": "mocha -r ts-node/register ./tests/unit/**/*$NAME*.{test,spec}.ts -t 5000 --exit",
+    "coverages": "nyc npm run test"
   },
   "dependencies": {
     "@types/pg-pool": "^2.0.3",
@@ -13,7 +14,6 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.0",
-    "nyc": "^15.1.0",
     "pg": "^8.8.0",
     "pg-promise": "^10.12.0",
     "uuid": "^9.0.0"
@@ -30,6 +30,7 @@
     "chai": "^4.3.6",
     "chai-http": "^4.3.0",
     "mocha": "^10.1.0",
+    "nyc": "^15.1.0",
     "sinon": "^14.0.1",
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
