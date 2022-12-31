@@ -1,4 +1,4 @@
-import { createTransaction, listMovements, updateTransaction } from "../models/finance.mod";
+import { createTransaction, deleteTransaction, listMovements, updateTransaction } from "../models/finance.mod";
 
 interface TransactionsProps {
   id: string;
@@ -26,4 +26,10 @@ export const updateServiceTransaction = async (transaction: TransactionsProps, i
   const data = await updateTransaction(title, type, amount, category, id, userId);
   if (!data) return { code: 404, resp: { message: 'Error of response try again' } }
   return { code: 200, resp: data };
+}
+
+export const deleteServiceTransaction = async (id: string, userId: string) => {
+  const data = await deleteTransaction(id, userId);
+  if (!data) return { code: 404, resp: { message: 'Error of response try again' } }
+  return { code: 204, resp: data };
 }
