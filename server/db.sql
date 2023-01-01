@@ -19,7 +19,7 @@ CREATE TABLE
         created_at character varying(50) COLLATE pg_catalog."default" NOT NULL,
         id_user character varying(50) COLLATE pg_catalog."default" NOT NULL,
         CONSTRAINT finance_pkey PRIMARY KEY (id),
-        CONSTRAINT finance_id_user_fkey FOREIGN KEY (id_user) REFERENCES public.users (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION
+        CONSTRAINT finance_id_user_fkey FOREIGN KEY (id_user) REFERENCES public.users (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE
     )
 INSERT INTO
     users (id, name, role, email, password)
