@@ -1,4 +1,4 @@
-import { createUserModel, searchEmail, searchRole } from '../models/user.mod';
+import { createUserModel, deleteUserModel, searchEmail, searchRole } from '../models/user.mod';
 import { v4 as uuidv4 } from 'uuid';
 import { genSaltSync, hashSync } from 'bcryptjs';
 
@@ -33,3 +33,10 @@ export const createUserService = async (name: string, email: string, password: s
   };
   return { resp: newUser, code: 201 };
 };
+
+export const deleteUserService = async (id: string, userId: string) => {
+  if (id !== userId) return { resp: { message: 'Unauthorized' }, code: 401 };
+  const deletedUser = await deleteUserModel(id);
+  if (!deletedUser) return { resp: { message: 'User not deleted in database' }, code: 400 };
+  return { resp: { message: 'User deleted' }, code: 200 };
+}
