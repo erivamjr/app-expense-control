@@ -31,3 +31,13 @@ export const createUserModel = async (id: string, name: string, role: string, em
   );
   return results.rowCount;
 };
+
+export const deleteUserModel = async (id: string) => {
+  const result = await (await client).query(`DELETE FROM
+  users 
+  WHERE 
+  id = $1 OR role = 'admin'`,
+    [id],
+  );
+  return result.rowCount;
+}
