@@ -13,7 +13,7 @@ CREATE TABLE
             INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1
         ),
         title character varying(250) COLLATE pg_catalog."default" NOT NULL,
-        type character varying(20) COLLATE pg_catalog."default" NOT NULL,
+        type character varying(50) COLLATE pg_catalog."default" NOT NULL,
         amount numeric NOT NULL,
         category character varying(250) COLLATE pg_catalog."default" NOT NULL,
         created_at character varying(50) COLLATE pg_catalog."default" NOT NULL,
