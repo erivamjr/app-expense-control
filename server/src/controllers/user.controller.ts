@@ -9,7 +9,7 @@ export const createUser = async (req: Request, res: Response) => {
 
 export const deleteUser = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const { id: userId } = req.body.user;
-  const { code, resp } = await deleteUserService(id, userId);
+  const { user } = req.body;
+  const { code, resp } = await deleteUserService(id, user);
   return res.status(code).json(resp);
 };

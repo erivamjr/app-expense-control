@@ -10,6 +10,7 @@ interface TransactionsProps {
 }
 export const listServiceMovements = async () => {
   const data = await listMovements();
+
   if (!data) return { code: 404, resp: { message: 'Error of response try again' } }
   return { code: 200, resp: data };
 };
@@ -23,8 +24,11 @@ export const createServiceTransaction = async (transaction: TransactionsProps, i
 
 export const updateServiceTransaction = async (transaction: TransactionsProps, id: string, userId: string) => {
   const { title, type, amount, category } = transaction;
+
+  if (!userId) return { code: 404, resp: { message: 'Error of response try again' } };
   const data = await updateTransaction(title, type, amount, category, id, userId);
-  if (!data) return { code: 404, resp: { message: 'Error of response try again' } }
+
+  if (!data.length) return { code: 404, resp: { message: 'Error of response try again' } }
   return { code: 200, resp: data };
 }
 

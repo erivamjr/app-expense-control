@@ -1,0 +1,31 @@
+[
+  {
+    "name": "José Erivam",
+    "email": "erivamdev@gmail.com",
+    "password": "123456"
+  },
+  {
+    "name": "Fernando",
+    "email": "postgres@postgres.com",
+    "password": "fer123"
+  },
+  {
+    "name": "Laurenz",
+    "email": "laurenz@postgres.com",
+    "password": "lau123"
+  },
+  {
+    "id": 1,
+    "title": "Freelancer de website",
+    "type": "deposit",
+    "amount": 6000,
+    "category": "Dev"
+  },
+  {
+    "id": 2,
+    "title": "Aluguel",
+    "type": "withdraw",
+    "amount": 1100,
+    "category": "Casa"
+  }
+]

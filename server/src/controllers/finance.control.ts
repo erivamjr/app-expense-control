@@ -20,8 +20,6 @@ export const updateTransactions = async (req: Request, res: Response) => {
   const { id } = req.params;
 
   const { code, resp } = await updateServiceTransaction(transaction, id, userId);
-  console.log(resp);
-
   return res.status(code).json(resp);
 }
 
