@@ -24,13 +24,7 @@ export const createUserService = async (name: string, email: string, password: s
   const id = uuidv4();
   const createdUser = await createUserModel(id, name, email, hash);
   if (!createdUser.rowCount) return { resp: { message: 'User not created in database' }, code: 400 };
-  // console.log('CONSOLLAANDDO', createdUser);
-  // const newUser = {
-  //   id,
-  //   name,
-  //   email,
-  //   password
-  // };
+
   return { resp: createdUser.rows, code: 201 };
 };
 
