@@ -10,17 +10,8 @@ export interface NewUserProps {
   role: string;
 }
 export const createUserService = async (name: string, email: string, password: string) => {
-  // const user = await searchEmail(email);
-
-  // if (user.rowCount) return { resp: { message: 'Email already exists' }, code: 400 };
-
-  // const isAdmin = await searchRole('admin')
-
-  // const role = isAdmin ? 'user' : 'admin';
-
   const salt = genSaltSync(10);
   const hash = hashSync(password, salt);
-
   const id = uuidv4();
   const createdUser = await createUserModel(id, name, email, hash);
   if (!createdUser.rowCount) return { resp: { message: 'User not created in database' }, code: 400 };
