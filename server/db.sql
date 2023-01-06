@@ -20,7 +20,23 @@ CREATE TABLE
         id_user character varying(50) COLLATE pg_catalog."default" NOT NULL,
         CONSTRAINT finance_pkey PRIMARY KEY (id),
         CONSTRAINT finance_id_user_fkey FOREIGN KEY (id_user) REFERENCES public.users (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE
-    )
+    ) -- public.categories definition
+    -- Drop table
+    -- DROP TABLE public.categories;
+CREATE TABLE
+    public.categories (
+        id serial4 NOT NULL,
+        category varchar(255) NOT NULL,
+        user_id varchar(255) NULL,
+        CONSTRAINT categories_pkey PRIMARY KEY (id)
+    );
+
+-- public.categories foreign keys
+
+ALTER TABLE public.categories
+ADD
+    CONSTRAINT categories_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id);
+
 INSERT INTO
     users (id, name, role, email, password)
 VALUES (

@@ -9,3 +9,6 @@ export const login = async (req: Request, res: Response) => {
   if (!resp) return res.status(code).json(resp);
   return res.status(code).json(resp);
 }
+
+// Criar rota para criar categoria
+// Rota para Deletar categoria
