@@ -28,8 +28,6 @@ export const deleteUserService = async (id: string, user: NewUserProps) => {
 
 export const getAllRegisterByUserService = async (id: string) => {
   const user = await getAllRegisterByUserModel(id);
-  console.log(user);
-
-  // if (!user.rowCount) return { resp: { message: 'User not found' }, code: 400 };
+  if (!user) return { resp: { message: 'User not found' }, code: 400 };
   return { resp: user, code: 200 };
 }
