@@ -1,4 +1,4 @@
-import { createUserModel, deleteUserModel, searchEmail } from '../models/user.mod';
+import { createUserModel, deleteUserModel, getAllRegisterByUserModel, searchEmail } from '../models/user.mod';
 import { v4 as uuidv4 } from 'uuid';
 import { genSaltSync, hashSync } from 'bcryptjs';
 
@@ -24,4 +24,12 @@ export const deleteUserService = async (id: string, user: NewUserProps) => {
   const deletedUser = await deleteUserModel(id);
   if (!deletedUser) return { resp: { message: 'User not deleted in database' }, code: 400 };
   return { resp: { message: 'User deleted' }, code: 200 };
+}
+
+export const getAllRegisterByUserService = async (id: string) => {
+  const user = await getAllRegisterByUserModel(id);
+  console.log(user);
+
+  // if (!user.rowCount) return { resp: { message: 'User not found' }, code: 400 };
+  return { resp: user, code: 200 };
 }
