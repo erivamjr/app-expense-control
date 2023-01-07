@@ -33,3 +33,15 @@ export const deleteUserModel = async (id: string) => {
   );
   return result.rowCount;
 }
+
+export const getAllRegisterByUserModel = async (id: string) => {
+  const result = await (await client).query(`
+  SELECT u.id, u.name, u.role, u.email, array_agg(c.category) as categories, json_agg(f.*) as finance
+  FROM users u
+  LEFT JOIN categories c ON c.user_id = u.id
+  LEFT JOIN finance f ON f.id_user = u.id
+  WHERE u.id = $1
+  GROUP BY u.id;
+`, [id]) as any;
+  return result.rows[0];
+};
