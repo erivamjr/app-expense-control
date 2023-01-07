@@ -28,4 +28,17 @@
     "amount": 1100,
     "category": "Casa"
   }
+],
+[
+  {
+    "id": "b27f8cf2-f1b6-461e-b7c6-54c69d741fdd",
+    "name": "Laurenz",
+    "role": "user",
+    "email": "laurenz@postgres.com",
+    "categories": [
+      "Casa",
+      "Dev"
+    ],
+    "created_at": "2023-01-03T18:32:01.625-03:00"
+  }
 ]
