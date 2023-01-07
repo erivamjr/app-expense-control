@@ -1,6 +1,6 @@
 import { Response, Request } from "express";
 import { createCategoryService, getAllCategoriesService } from "../services/category.serv";
-import { CategorySchema } from '../schemas/category.sch';
+import { CategorySchema } from '../utils/schemas';
 
 export const getAllCategories = async (req: Request, res: Response) => {
   const { code, resp } = await getAllCategoriesService();

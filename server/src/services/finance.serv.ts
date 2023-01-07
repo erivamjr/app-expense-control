@@ -1,13 +1,6 @@
 import { createTransaction, deleteTransaction, listMovements, updateTransaction } from "../models/finance.mod";
+import { TransactionsType } from "../utils/schemas";
 
-interface TransactionsProps {
-  id: string;
-  title: string;
-  type: string;
-  amount: number;
-  created_at: string;
-  category: string;
-}
 export const listServiceMovements = async () => {
   const data = await listMovements();
 
@@ -15,14 +8,14 @@ export const listServiceMovements = async () => {
   return { code: 200, resp: data };
 };
 
-export const createServiceTransaction = async (transaction: TransactionsProps, id: string) => {
+export const createServiceTransaction = async (transaction: TransactionsType, id: string) => {
   const { title, type, amount, category } = transaction;
   const data = await createTransaction(title, type, amount, category, id);
   if (!data) return { code: 404, resp: { message: 'Error of response try again' } }
   return { code: 201, resp: data };
 }
 
-export const updateServiceTransaction = async (transaction: TransactionsProps, id: string, userId: string) => {
+export const updateServiceTransaction = async (transaction: TransactionsType, id: string, userId: string) => {
   const { title, type, amount, category } = transaction;
 
   if (!userId) return { code: 404, resp: { message: 'Error of response try again' } };
