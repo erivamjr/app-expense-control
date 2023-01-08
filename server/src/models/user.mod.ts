@@ -1,9 +1,9 @@
-import { client } from '../config/connections';
+import { pool } from '../config/connections';
 export const searchEmail = async (email: string) => {
-  const result = await (await client).query(`SELECT * FROM
-  users 
-  WHERE 
-  email = $1`,
+  const result = await pool.query(
+    `SELECT * FROM
+      users 
+    WHERE email = $1`,
     [email],
   ) as any;
   return result;
@@ -11,9 +11,9 @@ export const searchEmail = async (email: string) => {
 
 export const createUserModel = async (id: string, name: string, email: string, password: string) => {
 
-  const results = await (await client).query(
+  const results = await pool.query(
     `INSERT INTO 
-    users (id, name, role, email, password, created_at)   
+      users (id, name, role, email, password, created_at)   
     SELECT $1, $2,         
     CASE WHEN (SELECT TRUE FROM users WHERE role = 'admin')     
     THEN 'user' ELSE 'admin' END,
@@ -25,17 +25,18 @@ export const createUserModel = async (id: string, name: string, email: string, p
 };
 
 export const deleteUserModel = async (id: string) => {
-  const result = await (await client).query(`DELETE FROM
-  users 
-  WHERE 
-  id = $1 RETURNING *`,
+  const result = await pool.query(
+    `DELETE FROM
+      users 
+    WHERE id = $1 
+    RETURNING *`,
     [id],
   );
   return result.rowCount;
 }
 
 export const getAllRegisterByUserModel = async (id: string) => {
-  const result = await (await client).query(`
+  const result = await pool.query(`
   SELECT u.id, u.name, u.role, u.email, array_agg(c.category) as categories, json_agg(f.*) as finance
   FROM users u
   LEFT JOIN categories c ON c.user_id = u.id
