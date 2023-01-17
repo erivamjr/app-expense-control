@@ -74,6 +74,5 @@ describe('Expensses in database', () => {
     });
   });
 
-
 });
 

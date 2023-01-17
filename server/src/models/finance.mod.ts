@@ -34,20 +34,3 @@ export const deleteTransaction = async (id: string, userId: string) => {
     [id, userId]) as any;
   return rowCount;
 }
-
-// import { db } from '../config/connections';
-
-// export const listMovements = async () => {
-//   const result = await db.query('SELECT * FROM finance') as any;
-//   console.log(result);
-
-//   return result.rows;
-// };
-
-// import { client } from '../config/connections';
-
-// client.connect();
-// export const listMovements = async () => {
-//   const result = await client.query('SELECT * FROM finance') as any;
-//   return result.rows;
-// };

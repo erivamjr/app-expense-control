@@ -2,7 +2,7 @@ import { getAllCategoriesModel, createCategoryModel } from "../../../src/models/
 import { SinonSandbox, createSandbox, assert } from "sinon";
 import { expect } from "chai";
 import { pool } from "../../../src/config/connections";
-import { categories } from "./mocks/fakeResponses";
+import { categories } from "../mocks/fakeResponses";
 
 describe("categoriesModel", () => {
   // Type for sandbox

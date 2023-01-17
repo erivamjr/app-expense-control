@@ -9,5 +9,5 @@ export const getAllCategoriesService = async () => {
 export const createCategoryService = async (category: string, id: string) => {
   const data = await createCategoryModel(category, id);
   if (!data) return { code: 404, resp: { message: 'Error of response try again' } }
-  return { code: 200, resp: data };
+  return { code: 201, resp: data };
 }
