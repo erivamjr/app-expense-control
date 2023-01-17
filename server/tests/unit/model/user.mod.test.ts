@@ -1,7 +1,7 @@
 import sinon from "sinon";
 import { expect } from "chai";
 import { pool } from "../../../src/config/connections";
-import { createUserModel, searchEmail } from "../../../src/models/user.mod";
+import { createUserModel, deleteUserModel, searchEmail } from "../../../src/models/user.mod";
 
 describe("User Model", () => {
   let sandbox: sinon.SinonSandbox;
@@ -67,6 +67,18 @@ describe("User Model", () => {
           }
         ]
       });
+    });
+  });
+
+  describe('should to delete', () => {
+    it('should return 1', async () => {
+      //Arrange
+      const queryStub = sandbox.stub(pool, "query");
+      queryStub.resolves({ rowCount: 1 });
+      // Action
+      const result = await deleteUserModel('1');
+      //Assert
+      expect(result).to.be.equal(1);
     });
   });
 });
