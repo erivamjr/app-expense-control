@@ -1,7 +1,7 @@
 import { SinonSandbox, createSandbox, assert } from 'sinon';
 import { expect } from 'chai';
 
-import { createTransaction, listMovements, updateTransaction } from '../../../src/models/finance.mod';
+import { createTransaction, deleteTransaction, listMovements, updateTransaction } from '../../../src/models/finance.mod';
 import { pool } from '../../../src/config/connections';
 import { transactions } from '../mocks/fakeResponses';
 describe('Expensses in database', () => {
@@ -52,6 +52,23 @@ describe('Expensses in database', () => {
       const result = await updateTransaction(title, type, amount, category, id.toString(), user_id);
       expect(result).to.deep.equal(transactions.rows);
 
+      assert.calledOnce(queryStub);
+
+    });
+  });
+
+  describe('Test function deleteTransaction', () => {
+    it("should return a list of expenses deleted", async () => {
+      // Arrange
+      const queryStub = sandbox.stub(pool, 'query').resolves({ rowCount: 1 });
+      const id = 1;
+      const userId = '123';
+
+      // Act
+      const result = await deleteTransaction(id.toString(), userId);
+
+      // Assert
+      expect(result).to.equal(1);
       assert.calledOnce(queryStub);
 
     });
