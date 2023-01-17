@@ -1,7 +1,8 @@
 import sinon from "sinon";
 import { expect } from "chai";
 import { pool } from "../../../src/config/connections";
-import { createUserModel, deleteUserModel, searchEmail } from "../../../src/models/user.mod";
+import { createUserModel, deleteUserModel, getAllRegisterByUserModel, searchEmail } from "../../../src/models/user.mod";
+import { userData } from "../mocks/fakeUsers";
 
 describe("User Model", () => {
   let sandbox: sinon.SinonSandbox;
@@ -81,5 +82,17 @@ describe("User Model", () => {
       expect(result).to.be.equal(1);
     });
   });
+
+
+  describe('Get all data user', () => {
+    it('should return all data users', async () => {
+      const queryStub = sandbox.stub(pool, 'query');
+      queryStub.resolves({ rows: [userData] });
+
+      const result = await getAllRegisterByUserModel('fb66bf68-3cc1-427b-8951-2de7a6a8ca61');
+
+      expect(result).to.deep.equal(userData);
+    })
+  })
 });
 // console.log('CONSOLANDO RESULTADO', result);
