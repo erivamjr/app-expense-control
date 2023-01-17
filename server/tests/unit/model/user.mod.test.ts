@@ -1,7 +1,7 @@
 import sinon from "sinon";
 import { expect } from "chai";
 import { pool } from "../../../src/config/connections";
-import { createUserModel } from "../../../src/models/user.mod";
+import { createUserModel, searchEmail } from "../../../src/models/user.mod";
 
 describe("User Model", () => {
   let sandbox: sinon.SinonSandbox;
@@ -42,6 +42,30 @@ describe("User Model", () => {
             created_at: "2023-01-17T18:23:31.149-03:00",
           },
         ],
+      });
+    });
+  });
+
+  describe('serch email', () => {
+    it('should return a email', async () => {
+      //Arrange
+      const queryStub = sandbox.stub(pool, "query");
+      queryStub.resolves({
+        rows: [
+          {
+            email: 'johndoe@postgres.com'
+          }
+        ]
+      });
+      // Action
+      const result = await searchEmail('johndoe@postgres.com');
+      //Assert
+      expect(result).to.deep.equal({
+        rows: [
+          {
+            email: 'johndoe@postgres.com'
+          }
+        ]
       });
     });
   });
