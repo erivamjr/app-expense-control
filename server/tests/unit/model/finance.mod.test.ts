@@ -24,5 +24,17 @@ describe('Get product in database', () => {
 
     });
   });
+
+  describe('Test function createTransaction', () => {
+    it("should return a list of expenses created", async () => {
+      const queryStub = sandbox.stub(pool, 'query').resolves(transactions);
+      const { title, type, amount, category, user_id } = transactions.rows[0];
+      const result = await createTransaction(title, type, amount, category, user_id);
+      expect(result).to.deep.equal(transactions.rows);
+
+      sinon.assert.calledOnce(queryStub);
+
+    });
+  });
 });
 
