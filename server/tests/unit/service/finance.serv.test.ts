@@ -30,9 +30,20 @@ describe('Test Service finance', () => {
       const createTransactionStub = sandbox.stub(financeMod, 'createTransaction');
       createTransactionStub.resolves(transactions.rows[0]);
       //Action
-      const result = await createServiceTransaction(transactions.rows[0], "fb66bf68-3cc1-427b-8951-2de7a6a8ca61");
+      const result = await createServiceTransaction({ title: "Freelancer de website", type: "deposit", amount: 6000, category: "Dev" }, "fb66bf68-3cc1-427b-8951-2de7a6a8ca61");
       //Assert
       expect(result).to.deep.equal({ code: 201, resp: transactions.rows[0] });
     });
+
+    it('When don\'t return moviments', async () => {
+      //Arrage
+      const createTransactionStub = sandbox.stub(financeMod, 'createTransaction');
+      createTransactionStub.resolves(null);
+      //Action
+      const result = await createServiceTransaction({ title: "Freelancer de website", type: "deposit", amount: 6000, category: "Dev" }, "fb66bf68-3cc1-427b-8951-2de7a6a8ca61");
+      //Assert
+      expect(result).to.deep.equal({ code: 404, resp: { message: 'Error of response try again' } });
+    });
   });
+
 });
