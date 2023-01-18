@@ -18,7 +18,7 @@ export const createServiceTransaction = async (transaction: TransactionsType, id
 export const updateServiceTransaction = async (transaction: TransactionsType, id: string, userId: string) => {
   const { title, type, amount, category } = transaction;
 
-  if (!userId) return { code: 404, resp: { message: 'Error of response try again' } };
+  if (!userId) return { code: 404, resp: { message: 'Error of response try again with user' } };
   const data = await updateTransaction(title, type, amount, category, id, userId);
 
   if (!data.length) return { code: 404, resp: { message: 'Error of response try again' } }
