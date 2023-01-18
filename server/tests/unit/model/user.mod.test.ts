@@ -86,13 +86,13 @@ describe("User Model", () => {
 
   describe('Get all data user', () => {
     it('should return all data users', async () => {
+      //Arrange
       const queryStub = sandbox.stub(pool, 'query');
       queryStub.resolves({ rows: [userData] });
-
+      // Action
       const result = await getAllRegisterByUserModel('fb66bf68-3cc1-427b-8951-2de7a6a8ca61');
-
+      //Assert
       expect(result).to.deep.equal(userData);
     })
   })
 });
-// console.log('CONSOLANDO RESULTADO', result);
