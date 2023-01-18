@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import { createSandbox, SinonSandbox } from "sinon";
 import * as financeMod from "../../../src/models/finance.mod"
-import { listServiceMovements } from "../../../src/services/finance.serv";
+import { createServiceTransaction, listServiceMovements } from "../../../src/services/finance.serv";
 import { transactions } from "../mocks/fakeResponses";
 
 describe('Test Service finance', () => {
@@ -21,6 +21,18 @@ describe('Test Service finance', () => {
       const result = await listServiceMovements();
       //Assert
       expect(result).to.deep.equal({ code: 200, resp: transactions.rows });
+    });
+  });
+
+  describe('Test function createTransaction', () => {
+    it('should return moviments created', async () => {
+      //Arrage
+      const createTransactionStub = sandbox.stub(financeMod, 'createTransaction');
+      createTransactionStub.resolves(transactions.rows[0]);
+      //Action
+      const result = await createServiceTransaction(transactions.rows[0], "fb66bf68-3cc1-427b-8951-2de7a6a8ca61");
+      //Assert
+      expect(result).to.deep.equal({ code: 201, resp: transactions.rows[0] });
     });
   });
 });
