@@ -22,6 +22,16 @@ describe('Test Service finance', () => {
       //Assert
       expect(result).to.deep.equal({ code: 200, resp: transactions.rows });
     });
+
+    it('When don\'t return moviments', async () => {
+      //Arrage
+      const createTransactionStub = sandbox.stub(financeMod, 'listMovements');
+      createTransactionStub.resolves(null);
+      //Action
+      const result = await listServiceMovements();
+      //Assert
+      expect(result).to.deep.equal({ code: 404, resp: { message: 'Error of response try again' } });
+    });
   });
 
   describe('Test function createServiceTransaction', () => {
@@ -93,10 +103,4 @@ describe('Test Service finance', () => {
       expect(result).to.deep.equal({ code: 404, resp: { message: 'Error of response try again' } });
     });
   })
-  // describe('Test function ',()=>{
-  //   it('should return moviments', async () => {
-
-  //   });
-  // })
-
 });

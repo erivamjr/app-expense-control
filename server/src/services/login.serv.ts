@@ -1,4 +1,4 @@
-import { compareSync, hashSync } from "bcryptjs";
+import { compareSync } from "bcryptjs";
 import { searchEmail } from "../models/user.mod";
 import { tokenGenerator } from "../utils/jwt";
 
