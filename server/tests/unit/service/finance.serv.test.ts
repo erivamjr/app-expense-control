@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import { createSandbox, SinonSandbox } from "sinon";
 import * as financeMod from "../../../src/models/finance.mod"
-import { createServiceTransaction, listServiceMovements, updateServiceTransaction } from "../../../src/services/finance.serv";
+import { createServiceTransaction, deleteServiceTransaction, listServiceMovements, updateServiceTransaction } from "../../../src/services/finance.serv";
 import { transactions } from "../mocks/fakeResponses";
 
 describe('Test Service finance', () => {
@@ -70,6 +70,25 @@ describe('Test Service finance', () => {
       createTransactionStub.resolves([]);
       //Action
       const result = await updateServiceTransaction({ title: "Freelancer de website", type: "deposit", amount: 6000, category: "Dev" }, "1", "fb66bf68-3cc1-427b-8951-2de7a6a8ca61");
+      //Assert
+      expect(result).to.deep.equal({ code: 404, resp: { message: 'Error of response try again' } });
+    });
+  })
+  describe('Test function deleteServiceTransaction', () => {
+    it('should return code 204 with success', async () => {
+      const deleteTransactionStub = sandbox.stub(financeMod, 'deleteTransaction');
+      deleteTransactionStub.resolves({ rowCount: 1 });
+      //Action
+      const result = await deleteServiceTransaction("1", "fb66bf68-3cc1-427b-8951-2de7a6a8ca61");
+      //Assert
+      expect(result).to.deep.equal({ code: 204, resp: { rowCount: 1 } });
+    });
+
+    it('should return code 204 with success', async () => {
+      const deleteTransactionStub = sandbox.stub(financeMod, 'deleteTransaction');
+      deleteTransactionStub.resolves(null);
+      //Action
+      const result = await deleteServiceTransaction("1", "fb66bf68-3cc1-427b-8951-2de7a6a8ca61");
       //Assert
       expect(result).to.deep.equal({ code: 404, resp: { message: 'Error of response try again' } });
     });
