@@ -5,13 +5,13 @@ export const listMovements = async () => {
   return rows;
 };
 
-export const createTransaction = async (title: string, type: string, amount: number, category: string, id: string) => {
+export const createTransaction = async (title: string, type: string, amount: number, category: string, idUser: string) => {
   const { rows } = await pool.query(
     `INSERT INTO 
       finance (title, type, amount, category, created_at, id_user) 
     VALUES ($1, $2, $3, $4, $5, $6) 
     RETURNING *`,
-    [title, type, amount, category, new Date(), id]) as any;
+    [title, type, amount, category, new Date(), idUser]) as any;
   return rows;
 }
 
