@@ -1,7 +1,7 @@
 import { createSandbox, SinonSandbox } from "sinon";
-import { createUserService } from "../../../src/services/user.serv";
+import { createUserService, deleteUserService } from "../../../src/services/user.serv";
 import * as userMod from "../../../src/models/user.mod";
-import { userFake } from "../mocks/fakeUsers";
+import { userBodyFake, userFake } from "../mocks/fakeUsers";
 import { expect } from "chai";
 
 describe('Test User ', () => {
@@ -23,6 +23,17 @@ describe('Test User ', () => {
       //Assert
       expect(result).to.deep.equal({ code: 201, resp: userFake.rows });
     });
+  });
 
+  describe('Test function deleteUserService', () => {
+    it('should return user deleted', async () => {
+      //Arrage
+      const deleteUserStub = sandbox.stub(userMod, 'deleteUserModel');
+      deleteUserStub.resolves(1);
+      //Action
+      const result = await deleteUserService('1', userBodyFake);
+      //Assert
+      expect(result).to.deep.equal({ resp: { message: 'User deleted' }, code: 200 });
+    });
   });
 });
