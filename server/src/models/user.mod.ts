@@ -20,7 +20,7 @@ export const createUserModel = async (id: string, name: string, email: string, p
         $3, $4, $5
     WHERE NOT EXISTS (SELECT 1 FROM users WHERE email = $6) RETURNING *`,
     [id, name, email, password, new Date(), email],
-  );
+  ) as any;
   return results;
 };
 
