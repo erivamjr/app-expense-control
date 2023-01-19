@@ -37,6 +37,6 @@ export const userFake = {
       email: 'erivamdev@gmail.com',
       password: '$2a$10$avzCf.wgS70jlbm.3Vn8v.bWdBXlMDEO4AeLuUfCHeDs9X5Gxp3Uy',
       created_at: '2023-01-06T19:32:47.119-03:00'
-    }
+    },
   ],
 }
