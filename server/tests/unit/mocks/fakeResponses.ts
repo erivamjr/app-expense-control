@@ -39,3 +39,11 @@ export const categories = {
     { id: 2, category: "Category 2" }
   ],
 }
+
+export const respCategoryFake = [
+  {
+    id: 13,
+    category: "Estudos",
+    user_id: "fb66bf68-3cc1-427b-8951-2de7a6a8ca61"
+  }
+]
