@@ -1,4 +1,4 @@
-export const transactions = {
+export const transactionsFake = {
   rows: [
     {
       id: 1,
@@ -47,3 +47,16 @@ export const respCategoryFake = [
     user_id: "fb66bf68-3cc1-427b-8951-2de7a6a8ca61"
   }
 ]
+
+export const bodyCreateTransactionFake = {
+  title: 'Despesa de Carro',
+  type: 'despesa',
+  amount: 6000,
+  category: 'Jogos',
+  user: {
+    id: 'fb66bf68-3cc1-427b-8951-2de7a6a8ca61',
+    email: 'erivamdev@gmail.com',
+    role: 'admin',
+    name: 'José Erivam'
+  }
+};

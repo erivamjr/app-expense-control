@@ -3,7 +3,7 @@ import { expect } from 'chai';
 
 import { createTransaction, deleteTransaction, listMovements, updateTransaction } from '../../../src/models/finance.mod';
 import { pool } from '../../../src/config/connections';
-import { transactions } from '../mocks/fakeResponses';
+import { transactionsFake } from '../mocks/fakeResponses';
 describe('Expensses in database', () => {
   let sandbox: SinonSandbox;
   beforeEach(() => {
@@ -15,10 +15,10 @@ describe('Expensses in database', () => {
 
   describe('Test function listMoviments', () => {
     it("should return a list of expenses", async () => {
-      const queryStub = sandbox.stub(pool, 'query').resolves(transactions);
+      const queryStub = sandbox.stub(pool, 'query').resolves(transactionsFake);
 
       const result = await listMovements();
-      expect(result).to.deep.equal(transactions.rows);
+      expect(result).to.deep.equal(transactionsFake.rows);
 
       assert.calledOnce(queryStub);
 
@@ -27,10 +27,10 @@ describe('Expensses in database', () => {
 
   describe('Test function createTransaction', () => {
     it("should return a list of expenses created", async () => {
-      const queryStub = sandbox.stub(pool, 'query').resolves(transactions);
-      const { title, type, amount, category, user_id } = transactions.rows[0];
+      const queryStub = sandbox.stub(pool, 'query').resolves(transactionsFake);
+      const { title, type, amount, category, user_id } = transactionsFake.rows[0];
       const result = await createTransaction(title, type, amount, category, user_id);
-      expect(result).to.deep.equal(transactions.rows);
+      expect(result).to.deep.equal(transactionsFake.rows);
 
       assert.calledOnce(queryStub);
 
@@ -47,10 +47,10 @@ describe('Expensses in database', () => {
 
   describe('Test function updatedTransaction', () => {
     it("should return a list of expenses updated", async () => {
-      const queryStub = sandbox.stub(pool, 'query').resolves(transactions);
-      const { title, type, amount, category, id, user_id } = transactions.rows[0];
+      const queryStub = sandbox.stub(pool, 'query').resolves(transactionsFake);
+      const { title, type, amount, category, id, user_id } = transactionsFake.rows[0];
       const result = await updateTransaction(title, type, amount, category, id.toString(), user_id);
-      expect(result).to.deep.equal(transactions.rows);
+      expect(result).to.deep.equal(transactionsFake.rows);
 
       assert.calledOnce(queryStub);
 

@@ -26,7 +26,7 @@ export const TransactionsSchema = z.object({
   category: z.string({
     required_error: "Category is required",
     invalid_type_error: "Category must be a string",
-  })
+  }),
 });
 
 export type TransactionsType = z.infer<typeof TransactionsSchema>;

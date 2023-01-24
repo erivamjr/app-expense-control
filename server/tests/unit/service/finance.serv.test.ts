@@ -2,7 +2,7 @@ import { expect } from "chai";
 import { createSandbox, SinonSandbox } from "sinon";
 import * as financeMod from "../../../src/models/finance.mod"
 import { createServiceTransaction, deleteServiceTransaction, listServiceMovements, updateServiceTransaction } from "../../../src/services/finance.serv";
-import { transactions } from "../mocks/fakeResponses";
+import { transactionsFake } from "../mocks/fakeResponses";
 
 describe('Test Service finance', () => {
   let sandbox: SinonSandbox;
@@ -16,11 +16,11 @@ describe('Test Service finance', () => {
     it('should return all moviments', async () => {
       //Arrage
       const lisMovementsStub = sandbox.stub(financeMod, 'listMovements');
-      lisMovementsStub.resolves(transactions.rows);
+      lisMovementsStub.resolves(transactionsFake.rows);
       //Action
       const result = await listServiceMovements();
       //Assert
-      expect(result).to.deep.equal({ code: 200, resp: transactions.rows });
+      expect(result).to.deep.equal({ code: 200, resp: transactionsFake.rows });
     });
 
     it('When don\'t return moviments', async () => {
@@ -38,11 +38,11 @@ describe('Test Service finance', () => {
     it('should return moviments created', async () => {
       //Arrage
       const createTransactionStub = sandbox.stub(financeMod, 'createTransaction');
-      createTransactionStub.resolves(transactions.rows[0]);
+      createTransactionStub.resolves(transactionsFake.rows[0]);
       //Action
       const result = await createServiceTransaction({ title: "Freelancer de website", type: "deposit", amount: 6000, category: "Dev" }, "fb66bf68-3cc1-427b-8951-2de7a6a8ca61");
       //Assert
-      expect(result).to.deep.equal({ code: 201, resp: transactions.rows[0] });
+      expect(result).to.deep.equal({ code: 201, resp: transactionsFake.rows[0] });
     });
 
     it('When don\'t return moviments', async () => {
@@ -60,11 +60,11 @@ describe('Test Service finance', () => {
     it('should return moviments updated', async () => {
       //Arrage
       const createTransactionStub = sandbox.stub(financeMod, 'updateTransaction');
-      createTransactionStub.resolves([transactions.rows[0]]);
+      createTransactionStub.resolves([transactionsFake.rows[0]]);
       //Action
       const result = await updateServiceTransaction({ title: "Freelancer de website", type: "deposit", amount: 6000, category: "Dev" }, "1", "fb66bf68-3cc1-427b-8951-2de7a6a8ca61");
       //Assert
-      expect(result).to.deep.equal({ code: 200, resp: [transactions.rows[0]] });
+      expect(result).to.deep.equal({ code: 200, resp: [transactionsFake.rows[0]] });
     });
 
     it('when haven\'t id of user', async () => {
