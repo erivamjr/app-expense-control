@@ -27,6 +27,7 @@ export const updateServiceTransaction = async (transaction: TransactionsType, id
 
 export const deleteServiceTransaction = async (id: string, userId: string) => {
   const data = await deleteTransaction(id, userId);
+
   if (!data) return { code: 404, resp: { message: 'Error of response try again' } }
   return { code: 204, resp: data };
 }

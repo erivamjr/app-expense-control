@@ -1,6 +1,6 @@
 import { SinonSandbox, createSandbox, assert } from 'sinon';
 import { expect } from 'chai';
-import { getList, createTransaction, updateTransactions } from '../../../src/controllers/finance.control';
+import { getList, createTransaction, updateTransactions, deleteTransactions } from '../../../src/controllers/finance.control';
 import * as financeServ from '../../../src/services/finance.serv';
 import { bodyCreateTransactionFake, transactionsFake } from '../mocks/fakeResponses';
 
@@ -61,7 +61,7 @@ describe('Test Finance of the controller layer', () => {
     it('should return the code 400 of finance in controller', async () => {
       response.status = sandbox.stub().returns(response);
       response.json = sandbox.stub().returns(response);
-      sandbox.stub(financeServ, 'createServiceTransaction').resolves({ code: 400, resp: transactionsFake.rows });
+      request.body = {};
       await createTransaction(request, response);
       expect(response.status.calledWith(400)).to.be.equal(true);
       assert.calledOnce(response.status);
@@ -94,10 +94,28 @@ describe('Test Finance of the controller layer', () => {
     it('should return the code 400 of finance in controller', async () => {
       response.status = sandbox.stub().returns(response);
       response.json = sandbox.stub().returns(response);
-      sandbox.stub(financeServ, 'updateServiceTransaction').resolves({ code: 400, resp: transactionsFake.rows });
+      request.body = {};
       await updateTransactions(request, response);
       expect(response.status.calledWith(400)).to.be.equal(true);
       assert.calledOnce(response.status);
     });
+  });
+
+  describe('Test deleteTransaction of the controller layer', () => {
+    const response = {} as any;
+    const request = {} as any;
+    request.body = { ...bodyCreateTransactionFake };
+    request.params = { id: '1' };
+
+    it('should return the code 204 of finance in controller', async () => {
+      response.status = sandbox.stub().returns(response);
+      response.json = sandbox.stub().returns(response);
+      sandbox.stub(financeServ, 'deleteServiceTransaction').resolves({ code: 204, resp: 1 });
+      await deleteTransactions(request, response);
+
+      expect(response.status.calledWith(204)).to.be.equal(true);
+      assert.calledOnce(response.status);
+    });
+
   });
 });
