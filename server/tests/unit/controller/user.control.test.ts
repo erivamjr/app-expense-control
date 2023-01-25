@@ -1,9 +1,9 @@
 import { SinonSandbox, createSandbox, assert } from 'sinon';
 import { expect } from 'chai';
-import { createUser } from '../../../src/controllers/user.controller';
+import { createUser, deleteUser, getAllRegisterByUser } from '../../../src/controllers/user.controller';
 import *  as userService from '../../../src/services/user.serv';
 import { afterEach } from 'mocha';
-import { userFake } from '../mocks/fakeUsers';
+import { userBodyFake, userFake } from '../mocks/fakeUsers';
 
 describe('UserService', () => {
   let sandbox: SinonSandbox;
@@ -53,4 +53,78 @@ describe('UserService', () => {
       expect(response.status.calledWith(400)).to.be.equal(true);
     });
   });
+
+  describe('Test deleteUser of the controller layer', () => {
+    const response = {} as any;
+    const request = {} as any;
+    request.body = { user: { ...userBodyFake } };
+
+    request.params = { id: '1' };
+
+    it('should return the code 200 of finance in controller', async () => {
+      response.status = sandbox.stub().returns(response);
+      response.json = sandbox.stub().returns(response);
+      sandbox.stub(userService, 'deleteUserService').resolves({
+        code: 200, resp: { message: 'User deleted' }
+      });
+      await deleteUser(request, response);
+      expect(response.status.calledWith(200)).to.be.equal(true);
+    });
+
+    it('when return success, should return JSON', async () => {
+      response.status = sandbox.stub().returns(response);
+      response.json = sandbox.stub().returns(response);
+      sandbox.stub(userService, 'deleteUserService').resolves({
+        code: 200, resp: { message: 'User deleted' }
+      });
+      await deleteUser(request, response);
+      expect(response.json.calledWith({ message: 'User deleted' })).to.be.equal(true);
+    });
+
+    it('when not extist user in body', async () => {
+      response.status = sandbox.stub().returns(response);
+      response.json = sandbox.stub().returns(response);
+      request.body = {};
+      await deleteUser(request, response);
+      expect(response.status.calledWith(400)).to.be.equal(true);
+    });
+  });
+
+  describe('Test getAllRegisterByUser in controller layer', () => {
+    const response = {} as any;
+    const request = {} as any;
+    request.body = {};
+    request.body.user = { ...userBodyFake }
+
+    it('should return the code 200 of finance in controller', async () => {
+      response.status = sandbox.stub().returns(response);
+      response.json = sandbox.stub().returns(response);
+      sandbox.stub(userService, 'getAllRegisterByUserService').resolves({
+        code: 200, resp: userFake.rows
+      });
+      await getAllRegisterByUser(request, response);
+      expect(response.status.calledWith(200)).to.be.equal(true);
+    });
+
+    it('when return success, should return JSON', async () => {
+      response.status = sandbox.stub().returns(response);
+      response.json = sandbox.stub().returns(response);
+      sandbox.stub(userService, 'getAllRegisterByUserService').resolves({
+        code: 200, resp: userFake.rows
+      });
+      await getAllRegisterByUser(request, response);
+      expect(response.json.calledWith(userFake.rows)).to.be.equal(true);
+    });
+
+    it('when return is null', async () => {
+      response.status = sandbox.stub().returns(response);
+      response.json = sandbox.stub().returns(response);
+      sandbox.stub(userService, 'getAllRegisterByUserService').resolves({
+        code: 400, resp: { message: 'User not found' }
+      });
+      await getAllRegisterByUser(request, response);
+      expect(response.status.calledWith(400)).to.be.equal(true);
+    });
+  });
 });
+
