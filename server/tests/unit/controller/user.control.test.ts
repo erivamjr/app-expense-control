@@ -35,6 +35,16 @@ describe('UserService', () => {
       expect(response.status.calledWith(201)).to.be.equal(true);
     });
 
+    it('when return success, should return JSON', async () => {
+      response.status = sandbox.stub().returns(response);
+      response.json = sandbox.stub().returns(response);
+      sandbox.stub(userService, 'createUserService').resolves({
+        code: 201, resp: userFake.rows[0]
+      });
+      await createUser(request, response);
+      expect(response.json.calledWith(userFake.rows[0])).to.be.equal(true);
+    });
+
     it('when request incorrect body, return 400', async () => {
       response.status = sandbox.stub().returns(response);
       response.json = sandbox.stub().returns(response);
