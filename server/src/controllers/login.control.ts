@@ -9,6 +9,5 @@ export const login = async (req: Request, res: Response) => {
   const { email, password } = login.data;
 
   const { resp, code } = await loginService(email, password);
-  if (!resp) return res.status(code).json(resp);
   return res.status(code).json(resp);
 }

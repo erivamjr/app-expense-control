@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import { createUser, deleteUser, getAllRegisterByUser } from '../../../src/controllers/user.controller';
 import *  as userService from '../../../src/services/user.serv';
 import { afterEach } from 'mocha';
-import { userBodyFake, userFake } from '../mocks/fakeUsers';
+import { userBodyFake, userData, userFake } from '../mocks/fakeUsers';
 
 describe('UserService', () => {
   let sandbox: SinonSandbox;
@@ -100,7 +100,7 @@ describe('UserService', () => {
       response.status = sandbox.stub().returns(response);
       response.json = sandbox.stub().returns(response);
       sandbox.stub(userService, 'getAllRegisterByUserService').resolves({
-        code: 200, resp: userFake.rows
+        code: 200, resp: { ...userData }
       });
       await getAllRegisterByUser(request, response);
       expect(response.status.calledWith(200)).to.be.equal(true);
@@ -110,10 +110,10 @@ describe('UserService', () => {
       response.status = sandbox.stub().returns(response);
       response.json = sandbox.stub().returns(response);
       sandbox.stub(userService, 'getAllRegisterByUserService').resolves({
-        code: 200, resp: userFake.rows
+        code: 200, resp: { ...userData }
       });
       await getAllRegisterByUser(request, response);
-      expect(response.json.calledWith(userFake.rows)).to.be.equal(true);
+      expect(response.json.calledWith({ ...userData })).to.be.equal(true);
     });
 
     it('when return is null', async () => {

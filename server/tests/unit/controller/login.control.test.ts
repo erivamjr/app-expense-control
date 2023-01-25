@@ -45,7 +45,7 @@ describe('Test Login of the controller layer', () => {
   });
 
   it('when body incorrect', async () => {
-    sandbox.stub(loginServ, 'loginService').resolves({ code: 400, resp: { message: 'Incorrect username or password' } });
+    request.body = {};
     await login(request, response);
     expect(response.status.calledWith(400)).to.be.equal(true);
   });
